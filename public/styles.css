@@ -1,7 +1,7 @@
 #chart {
   height: 600px;
   width: 960px;
-  margin: 100px auto;
+  margin: 20px auto;
 }
 
 div.tooltip {
@@ -13,4 +13,15 @@ div.tooltip {
     border: 0px;
     border-radius: 5px;
     pointer-events: none;
+    color: white;
+}
+
+h1, figcaption {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+figcaption {
+  width: 860px;
+  margin: auto;
 }
