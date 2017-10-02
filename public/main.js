@@ -12,7 +12,7 @@
   function init(dataset) {
 
     var chartStyle = window.getComputedStyle(document.querySelector('#chart'), null);
-    var padding = 50;
+    var padding = 60;
     var barWidth = 3;
     var height = parseFloat(chartStyle.height);
     var width = parseFloat(chartStyle.width);
