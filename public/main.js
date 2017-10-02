@@ -13,14 +13,14 @@
 
     var chartStyle = window.getComputedStyle(document.querySelector('#chart'), null);
     var padding = 50;
-    var barWidth = 1.5;
+    var barWidth = 3;
     var height = parseFloat(chartStyle.height);
     var width = parseFloat(chartStyle.width);
 
     var formatTime = d3.timeFormat('%Y - %b');
 
     var xScale = d3.scaleTime()
-                   .rangeRound([padding, width - padding]);
+                   .range([padding, width - padding]);
     xScale.domain(d3.extent(dataset, function (d) {return d[0]}));
 
     var yScale = d3.scaleLinear()
