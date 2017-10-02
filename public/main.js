@@ -14,8 +14,12 @@
     var chartStyle = window.getComputedStyle(document.querySelector('#chart'), null);
     var padding = 60;
     var barWidth = 3;
-    var height = parseFloat(chartStyle.height);
-    var width = parseFloat(chartStyle.width);
+    var w = window;
+    var d = document;
+    var e = d.documentElement;
+    var g = d.getElementsByTagName('body')[0];
+    var width = Math.min((w.innerWidth || e.clientWidth || g.clientWidth), 960);
+    var height = (w.innerHeight|| e.clientHeight|| g.clientHeight) - padding - 200;
 
     var formatTime = d3.timeFormat('%Y - %b');
 
@@ -88,9 +92,6 @@
       .each(function(d, i) {
         d3.select(this).style('font-size', '16px')
       });
-
   }
-
-
 
 })()

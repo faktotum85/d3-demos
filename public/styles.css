@@ -1,7 +1,10 @@
+figure {
+  margin: 0
+}
+
 #chart {
-  height: 600px;
-  width: 960px;
   margin: 20px auto;
+  text-align: center;
 }
 
 div.tooltip {
@@ -22,6 +25,7 @@ h1, figcaption {
 }
 
 figcaption {
-  width: 860px;
+  max-width: 670px;
+  padding: 0 20px;
   margin: auto;
 }
