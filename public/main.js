@@ -73,13 +73,22 @@
 
     svg.append('g')
      .attr('transform', 'translate(0, ' + (height - padding) + ')')
-     .call(xAxis);
+     .call(xAxis)
+     .selectAll('.tick>text')
+     .each(function(d, i) {
+       d3.select(this).style('font-size', '16px')
+     });
 
     var yAxis = d3.axisLeft(yScale);
 
     svg.append('g')
       .attr('transform', 'translate(' + padding + ', 0)')
-      .call(yAxis);
+      .call(yAxis)
+      .selectAll('.tick>text')
+      .each(function(d, i) {
+        d3.select(this).style('font-size', '16px')
+      });
+
   }
 
 
