@@ -17,6 +17,11 @@ div.tooltip {
     border-radius: 5px;
     pointer-events: none;
     color: white;
+    width: 150px;
+}
+
+div.tooltip.wide {
+  width: 200px;
 }
 
 h1 {
@@ -32,4 +37,8 @@ figcaption {
   max-width: 670px;
   padding: 0 20px;
   margin: auto;
+}
+
+.label {
+  font-family: sans-serif;
 }

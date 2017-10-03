@@ -60,7 +60,7 @@
         div.html(
             '<strong>' + d[1].toLocaleString('en-US', {style: 'currency', currency: 'USD'})
             + ' Billion</strong><br/>' + formatTime(d[0]))
-        if (width - d3.event.pageX < 125) { // near the right edge
+        if ((width - d3.event.offsetX) < 170) { // near the right edge
           div
             .style('left', (d3.event.pageX - 150) + 'px')
             .style('top', (d3.event.pageY - 30) + 'px');
