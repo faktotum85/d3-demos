@@ -1,6 +1,6 @@
 (function () {
 
-  var dataset, svg, xScale, yScale, xAxis, yAxis, now, margin, width, height, bestTime, div;
+  var dataset, svg, xScale, yScale, xAxis, yAxis, now, margin, width, height, bestTime, div, legend;
 
   axios
     .get('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/cyclist-data.json')
@@ -19,7 +19,7 @@
 
     margin = {
       left: 50,
-      right: 25,
+      right: 100,
       top: 25,
       bottom: 50
     }
@@ -60,20 +60,82 @@
       .text('Ranking')
       .attr('transform', 'rotate(-90)')
 
+      // collect legend entries
+      var entries = [];
+      var legendText = '';
+      dataset.forEach(function(entry) {
+        legendText = entry.Doping ? 'Doping allegations' : 'No doping allegations';
+        if (entries.indexOf(legendText) === -1) {
+          entries.push(legendText)
+        }
+      });
+      // append colors
+      var colors = ['tomato', 'lightsteelblue'];
+      var legendItems = [];
+      entries.forEach(function (entry, index) {
+        legendItems.push({
+          text: entry,
+          color: colors[index]
+        })
+      });
+
+    // create scatters
     svg.selectAll('circle')
       .data(dataset)
       .enter()
       .append('circle')
+      .classed('data', true)
       .attr('r', 5)
-      .attr('fill', 'lightsteelblue')
+      .attr('fill', function (d) {return colors[entries.indexOf(d.Doping ? 'Doping allegations' : 'No doping allegations')]})
+      .attr('data-fill', function (d) {return colors[entries.indexOf(d.Doping ? 'Doping allegations' : 'No doping allegations')]})
       .on('mouseover', showTooltip)
-      .on('mouseout', function(d) {
-        div.transition()
-          .duration(500)
-          .style('opacity', 0);
-        d3.select(this)
-          .attr('fill', 'lightsteelblue')
-      });
+      .on('mouseout', hideTooltip);
+
+    // add text labels
+    svg.selectAll('.point.label')
+      .data(dataset)
+      .enter()
+      .append('text')
+      .classed('point label', true)
+      .text(function (d) {return d.Name})
+      .style('font-size', '12px')
+
+    // add legend
+    legend = svg.append('svg')
+                .attr('height', 100)
+                .attr('width', 150)
+
+    legend
+      .selectAll('text')
+      .data(legendItems)
+      .enter()
+      .append('text')
+      .text(function(d) {return d.text})
+      .attr('y', function (d, i) {return (i + 2) * 20})
+      .attr('x', 15)
+      .style('font-family', 'sans-serif')
+      .style('font-size', '14px')
+
+    legend
+      .selectAll('circle')
+      .data(legendItems)
+      .enter()
+      .append('circle')
+      .classed('legend', true)
+      .attr('fill', function (d) { return d.color})
+      .attr('r', 5)
+      .attr('cy', function (d, i) {return (i + 2) * 20 - 4})
+      .attr('cx', 5)
+
+    legend
+      .append('text')
+      .text('Legend')
+      .attr('x', 15)
+      .attr('y', 20)
+      .style('text-decoration', 'underline')
+      .style('font-weight', 'bold')
+      .style('font-family', 'sans-serif')
+      .style('font-size', '14px')
 
     render();
   }
@@ -90,7 +152,6 @@
       'Year: ' + d.Year + ', Time: ' + d.Time + '<br />' +
       d.Doping
     )
-    console.log(d3.event);
     if ((width - d3.event.offsetX) < 100) { // near the right edge
       div
         .style('left', (d3.event.pageX - 220) + 'px')
@@ -106,6 +167,14 @@
     }
   }
 
+  function hideTooltip(d) {
+    div.transition()
+      .duration(500)
+      .style('opacity', 0);
+    d3.select(this)
+      .attr('fill', this.getAttribute('data-fill'))
+  }
+
   function formatRelativeTime(absolute) {
     var delta = absolute - bestTime;
     return Math.floor(delta / 60) + ":" + (delta % 60)
@@ -119,6 +188,13 @@
     width = Math.min((w.innerWidth || e.clientWidth || g.clientWidth), 960) - 30 ;
     height = (w.innerHeight|| e.clientHeight|| g.clientHeight) - 150;
 
+    // adjust tick based on window size
+    if (width < 400) {
+      xAxis.ticks(3);
+    } else {
+      xAxis.ticks(9);
+    }
+
     // adjust sizing of chart area...
     svg.attr('width', width)
       .attr('height', height)
@@ -128,8 +204,8 @@
     yScale.range([height - margin.bottom, margin.top]);
 
     // and bars
-    svg.selectAll('circle')
-      .attr('cx', function(d, i) {return xScale(d.Seconds) })
+    svg.selectAll('circle.data')
+      .attr('cx', function(d) {return xScale(d.Seconds) })
       .attr('cy', function(d, i) {return yScale(i + 1) })
 
     // and adjust axes
@@ -146,8 +222,18 @@
       .attr('transform', 'translate(' + ((margin.left + width) / 2) + ',' + (height) + ')');
     svg.select('.y.label')
       .attr('x', 0 - height / 2)
-      .attr('y', margin.left / 3)
+      .attr('y', margin.left / 3);
 
+    var display = width < 400 ? 'none' : 'block'
+    svg.selectAll('.point.label')
+      .attr('x', function(d) {return xScale(d.Seconds - 5)})
+      .attr('y', function(d, i) {return yScale(i + 1)})
+      .attr('display', display) // hide on smaller screens
+
+    // and legend
+    legend
+      .attr('x', width / 2 + 25)
+      .attr('y', height / 2)
   }
 
 })()
