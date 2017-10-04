@@ -34,8 +34,6 @@
       .append('svg')
 
     // Initialize and add axes
-    now = new Date();
-
     xScale = d3.scaleLinear().domain([
       d3.max(dataset, function (d) {return d.Seconds}),
       d3.min(dataset, function (d) {return d.Seconds})

@@ -28,9 +28,20 @@ h1 {
   margin-bottom: 0;
 }
 
-h1, figcaption {
+h1, h2, figcaption {
   text-align: center;
   font-family: sans-serif;
+}
+
+h2 {
+  max-width: 600px;
+  margin: auto;
+}
+
+small {
+  display: block;
+  font-size: .6em;
+  font-weight: normal;
 }
 
 figcaption {
