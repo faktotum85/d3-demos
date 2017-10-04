@@ -152,7 +152,7 @@
       'Year: ' + d.Year + ', Time: ' + d.Time + '<br />' +
       d.Doping
     )
-    if ((width - d3.event.offsetX) < 100) { // near the right edge
+    if ((width - d3.event.offsetX) < 130) { // near the right edge
       div
         .style('left', (d3.event.pageX - 220) + 'px')
         .style('top', (d3.event.pageY - 30) + 'px');
@@ -189,7 +189,7 @@
     height = (w.innerHeight|| e.clientHeight|| g.clientHeight) - 150;
 
     // adjust tick based on window size
-    if (width < 400) {
+    if (width < 500) {
       xAxis.ticks(3);
     } else {
       xAxis.ticks(9);
@@ -224,7 +224,7 @@
       .attr('x', 0 - height / 2)
       .attr('y', margin.left / 3);
 
-    var display = width < 400 ? 'none' : 'block'
+    var display = width < 500 ? 'none' : 'block'
     svg.selectAll('.point.label')
       .attr('x', function(d) {return xScale(d.Seconds - 5)})
       .attr('y', function(d, i) {return yScale(i + 1)})
@@ -232,7 +232,7 @@
 
     // and legend
     legend
-      .attr('x', width / 2 + 25)
+      .attr('x', width / 2 )
       .attr('y', height / 2)
   }
 
