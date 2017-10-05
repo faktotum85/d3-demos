@@ -53,7 +53,9 @@
       .enter()
       .append('circle')
       .attr('fill', 'red')
-      .attr('cx', function (d) {return mercProjection(d.geometry.coordinates)[0]})
+      .attr('cx', function (d) {
+        console.log(mercProjection(d.geometry.coordinates))
+        return mercProjection(d.geometry.coordinates)[0]})
       .attr('cy', function (d) {return mercProjection(d.geometry.coordinates)[1]})
       .attr('r', 10)
 
