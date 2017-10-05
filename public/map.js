@@ -33,7 +33,8 @@
     var mercProjection = d3
       .geoMercator()
       .center([13,52])
-      .translate([width/2, height/2]);
+      // .translate([width/2, height/2]);
+      .fitExtent([[20,20],[width - 40, height - 40]], map);
 
 
     var geoPath = d3.geoPath().projection(mercProjection);
