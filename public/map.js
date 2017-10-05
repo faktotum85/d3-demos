@@ -78,8 +78,8 @@
       'Mass: ' + d.properties.mass + '<br/>' +
       'Year: ' + d.properties.year.substring(0,4) + '<br/>' +
       'Class: ' + d.properties.recclass + '<br/>' +
-      'Longitute: ' + d.properties.reclong + '<br/>' +
-      'Latitude: ' + d.properties.reclat + '<br/>'
+      'Longitute: ' + +d.properties.reclong.toFixed(2) + '<br/>' +
+      'Latitude: ' + +d.properties.reclat.toFixed(2) + '<br/>'
     )
     if ((width - d3.event.offsetX) < 130) { // near the right edge
       div.style('left', (d3.event.pageX - 160) + 'px')
