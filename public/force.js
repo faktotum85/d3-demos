@@ -1,6 +1,6 @@
 (function(){
 
-  var svg, nodes, links, height, width, simulation, nodeElements, textElements;
+  var svg, nodes, links, height, width, simulation, nodeElements, textElements, linkElements;
 
   axios.get('https://raw.githubusercontent.com/DealPete/forceDirected/master/countries.json')
        .then(function (res) {
@@ -37,9 +37,18 @@
         .attr('dx', 15) // x and y are set dynamically by the simulation
         .attr('dy', 4)
 
+    // append links
+    linkElements = svg.append('g')
+      .selectAll('line')
+      .data(links)
+      .enter().append('line')
+        .attr('stroke-width', 1)
+        .attr('stroke', 'grey')
+
     // set up simulation
     simulation = d3.forceSimulation()
       .force('charge', d3.forceManyBody().strength(-20)) // add friction
+      .force('link', d3.forceLink());
 
     render();
 
@@ -55,22 +64,32 @@
       .attr('height', height)
       .attr('width', width)
 
-    simulation
-      .force('center', d3.forceCenter(width / 2, height / 2))
+    // simulation
+
 
     // link nodes to simulation and tick function, which runs periodically
-    simulation.nodes(nodes).on('tick', tickFunc);
+    simulation
+      .nodes(nodes).on('tick', tickFunc)
+
+    simulation
+      .force('center', d3.forceCenter(width / 2, height / 2))
+      .force('link').links(links); // apply links
 
   }
 
   function tickFunc() {
-    // update node and label positions
+    // update node, label and link positions
     nodeElements
       .attr('cx', function (node) {return node.x})
       .attr('cy', function (node) {return node.y});
     textElements
       .attr('x', function (node) {return node.x})
       .attr('y', function (node) {return node.y});
+    linkElements
+      .attr('x1', function (link) {return link.source.x})
+      .attr('y1', function (link) {return link.source.y})
+      .attr('x2', function (link) {return link.target.x})
+      .attr('y2', function (link) {return link.target.y});
   }
 
 })()
