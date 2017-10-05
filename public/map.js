@@ -22,7 +22,7 @@
     var svg = d3.select('#chart')
                 .append('svg');
 
-    var height = window.innerHeight - document.querySelector('svg').getBoundingClientRect().y - 30;
+    var height = Math.min(window.innerHeight - document.querySelector('svg').getBoundingClientRect().y - 30, 600);
     var width = window.innerWidth - 30;
 
     svg.attr('width', width)
