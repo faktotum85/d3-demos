@@ -53,14 +53,3 @@ figcaption {
 .label {
   font-family: sans-serif;
 }
-
-.node {
-    fill: #ccc;
-    stroke: #fff;
-    stroke-width: 2px;
-}
-
-.link {
-    stroke: #777;
-    stroke-width: 2px;
-}
