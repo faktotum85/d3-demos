@@ -53,8 +53,8 @@
       .data(meteorStrikes.features)
       .append('circle')
       .attr('fill', 'red')
-      .attr('cx', function (d) {return mercProjection(d)[0]})
-      .attr('cy', function (d) {return mercProjection(d)[1]})
+      .attr('cx', function (d) {return mercProjection(d.geometry.coordinates)[0]})
+      .attr('cy', function (d) {return mercProjection(d.geometry.coordinates)[1]})
       .attr('r', 10)
 
   }
