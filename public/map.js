@@ -56,9 +56,9 @@
       .data(meteorStrikes.features.filter(function(strike) {return strike.geometry}))
       .enter()
       .append('circle')
-      .attr('fill', 'rgba(255,0,0,0.3)')
+      .attr('fill', 'rgba(255,0,0,0.2)')
       .attr('stroke', 'red')
-      .attr('stroke-width', 1)
+      .attr('stroke-width', 0.5)
       .attr('cx', function (d) {return mercProjection(d.geometry.coordinates)[0]})
       .attr('cy', function (d) {return mercProjection(d.geometry.coordinates)[1]})
       .attr('r', function(d) {return Math.pow(+d.properties.mass, 1/4) || 1})
@@ -76,7 +76,7 @@
     div.html(
       '<strong>' + d.properties.name + '</strong><br/>' +
       'Mass: ' + d.properties.mass + '<br/>' +
-      'Year: ' + d.year.substring(0,4) + '<br/>' +
+      'Year: ' + d.properties.year.substring(0,4) + '<br/>' +
       'Class: ' + d.properties.recclass + '<br/>' +
       'Longitute: ' + d.properties.reclong + '<br/>' +
       'Latitude: ' + d.properties.reclat + '<br/>'
