@@ -59,7 +59,7 @@
       .attr('stroke-width', 1)
       .attr('cx', function (d) {return mercProjection(d.geometry.coordinates)[0]})
       .attr('cy', function (d) {return mercProjection(d.geometry.coordinates)[1]})
-      .attr('r', function(d) {return Math.pow(+d.properties.mass, 1/4) || 1})
+      .attr('r', function(d) {return Math.log10(+d.properties.mass) || 1})
 
   }
 
