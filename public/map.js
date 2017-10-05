@@ -63,7 +63,8 @@
       .attr('cy', function (d) {return mercProjection(d.geometry.coordinates)[1]})
       .attr('r', function(d) {return Math.pow(+d.properties.mass, 1/4) || 1})
       .on('mouseover', showTooltip)
-      .on('mouseout', hideTooltip);
+      .on('mouseout', hideTooltip)
+      .on('click', function() {this.remove()})
 
   }
 
@@ -73,7 +74,12 @@
       .duration(200)
       .style('opacity', .9);
     div.html(
-      d.properties.mass
+      '<strong>' + d.properties.name + '</strong><br/>' +
+      'Mass: ' + d.properties.mass + '<br/>' +
+      'Year: ' + d.year.substring(0,4) + '<br/>' +
+      'Class: ' + d.properties.recclass + '<br/>' +
+      'Longitute: ' + d.properties.reclong + '<br/>' +
+      'Latitude: ' + d.properties.reclat + '<br/>'
     )
     if ((width - d3.event.offsetX) < 130) { // near the right edge
       div.style('left', (d3.event.pageX - 160) + 'px')
