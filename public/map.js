@@ -1,6 +1,6 @@
 (function() {
 
-  var meteorStrikes, map, div;
+  var meteorStrikes, map, div, height, width;
 
   function getStrikes () {
     return axios.get('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json');
@@ -14,8 +14,6 @@
     .then(axios.spread(function(strikes, geoMap) {
       meteorStrikes = strikes.data;
       map = geoMap.data;
-      console.log(d3.max(meteorStrikes.features, function(s) {return +s.properties.mass}))
-      console.log(d3.min(meteorStrikes.features, function(s) {return +s.properties.mass}))
       init();
     }))
     .catch(function(err) {console.error(err)});
@@ -24,8 +22,8 @@
     var svg = d3.select('#chart')
                 .append('svg');
 
-    var height = window.innerHeight - document.querySelector('svg').getBoundingClientRect().y - 30;
-    var width = window.innerWidth - 30;
+    height = window.innerHeight - document.querySelector('svg').getBoundingClientRect().y - 30;
+    width = window.innerWidth - 30;
 
     svg.attr('width', width)
        .attr('height', height);
@@ -58,7 +56,7 @@
       .data(meteorStrikes.features.filter(function(strike) {return strike.geometry}))
       .enter()
       .append('circle')
-      .attr('fill', 'rgba(255,0,0,0.5)')
+      .attr('fill', 'rgba(255,0,0,0.3)')
       .attr('stroke', 'red')
       .attr('stroke-width', 1)
       .attr('cx', function (d) {return mercProjection(d.geometry.coordinates)[0]})
