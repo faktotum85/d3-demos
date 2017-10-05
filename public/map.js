@@ -49,7 +49,7 @@
     var meteors = svg.append('g');
 
     meteors.selectAll('circle')
-      .data(meteorStrikes.features)
+      .data(meteorStrikes.features.filter(function(strike) {return strike.geometry}))
       .enter()
       .append('circle')
       .attr('fill', 'red')
