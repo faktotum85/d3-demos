@@ -64,7 +64,10 @@
       .attr('r', function(d) {return Math.pow(+d.properties.mass, 1/4) || 1})
       .on('mouseover', showTooltip)
       .on('mouseout', hideTooltip)
-      .on('click', function() {this.remove()})
+      .on('click', function() {
+        hideTooltip;
+        this.remove();
+      })
 
   }
 
