@@ -14,8 +14,8 @@
     .then(axios.spread(function(strikes, geoMap) {
       meteorStrikes = strikes.data;
       map = geoMap.data;
-      console.log(d3.max(meteorStrikes.features, function(s) {return s.properties.mass}))
-      console.log(d3.min(meteorStrikes.features, function(s) {return s.properties.mass}))
+      console.log(d3.max(meteorStrikes.features, function(s) {return +s.properties.mass}))
+      console.log(d3.min(meteorStrikes.features, function(s) {return +s.properties.mass}))
       init();
     }))
     .catch(function(err) {console.error(err)});
