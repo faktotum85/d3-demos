@@ -54,10 +54,12 @@
       .data(meteorStrikes.features.filter(function(strike) {return strike.geometry}))
       .enter()
       .append('circle')
-      .attr('fill', 'red')
+      .attr('fill', 'rgba(255,0,0,0.5)')
+      .attr('stroke', 'red')
+      .attr('stroke-width', 1)
       .attr('cx', function (d) {return mercProjection(d.geometry.coordinates)[0]})
       .attr('cy', function (d) {return mercProjection(d.geometry.coordinates)[1]})
-      .attr('r', function(d) {return Math.pow(+d.properties.mass, 1/8) || 1})
+      .attr('r', function(d) {return Math.pow(+d.properties.mass, 1/4) || 1})
 
   }
 
