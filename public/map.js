@@ -48,9 +48,9 @@
 
     var meteors = svg.append('g');
 
-    meteors
-      .selectAll('circle')
+    meteors.selectAll('circle')
       .data(meteorStrikes.features)
+      .enter()
       .append('circle')
       .attr('fill', 'red')
       .attr('cx', function (d) {return mercProjection(d.geometry.coordinates)[0]})
