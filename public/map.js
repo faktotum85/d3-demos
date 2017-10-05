@@ -57,7 +57,7 @@
       .attr('fill', 'red')
       .attr('cx', function (d) {return mercProjection(d.geometry.coordinates)[0]})
       .attr('cy', function (d) {return mercProjection(d.geometry.coordinates)[1]})
-      .attr('r', function(d) {return Math.pow(+d.properties.mass, 1/10) || 1})
+      .attr('r', function(d) {return Math.pow(+d.properties.mass, 1/8) || 1})
 
   }
 
