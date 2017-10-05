@@ -31,7 +31,9 @@
 
     var mercProjection = d3
       .geoMercator()
+      .center([13,52])
       .translate([width/2, height/2]);
+
 
     var geoPath = d3.geoPath().projection(mercProjection);
     countries.selectAll('path')
