@@ -22,9 +22,10 @@
     var width = 700;
     var height = 580;
 
-
-    var svg = d3.select('#chart').append('svg')
-                .attr({'width': width, 'height': height});
+    var svg = d3.select('#chart')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height);
 
     var countries = svg.append('g');
 
