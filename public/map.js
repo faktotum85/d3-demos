@@ -1,6 +1,6 @@
 (function() {
 
-  var meteorStrikes, map;
+  var meteorStrikes, map, div;
 
   function getStrikes () {
     return axios.get('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json');
@@ -32,6 +32,10 @@
 
     var countries = svg.append('g');
 
+    div = d3.select('#chart').append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', 0);
+
     var mercProjection = d3
       .geoEquirectangular()
       .center([13,52])
@@ -59,8 +63,39 @@
       .attr('stroke-width', 1)
       .attr('cx', function (d) {return mercProjection(d.geometry.coordinates)[0]})
       .attr('cy', function (d) {return mercProjection(d.geometry.coordinates)[1]})
-      .attr('r', function(d) {return Math.log10(+d.properties.mass) || 1})
+      .attr('r', function(d) {return Math.pow(+d.properties.mass, 1/4) || 1})
+      .on('mouseover', showTooltip)
+      .on('mouseout', hideTooltip);
 
   }
+
+  function showTooltip(d) {
+
+    div.transition()
+      .duration(200)
+      .style('opacity', .9);
+    div.html(
+      d.properties.mass
+    )
+    if ((width - d3.event.offsetX) < 130) { // near the right edge
+      div.style('left', (d3.event.pageX - 160) + 'px')
+    } else if (d3.event.offsetX < 150) { // near the left edge
+      div.style('left', (d3.event.pageX + 10) + 'px')
+    } else {
+      div.style('left', (d3.event.pageX - 70) + 'px')
+    }
+    if ((height - d3.event.offsetY) < 100) { // near the bottom
+      div.style('top', (d3.event.pageY - 60) + 'px');
+    } else {
+      div.style('top', (d3.event.pageY + 10) + 'px');
+    }
+  }
+
+  function hideTooltip(d) {
+    div.transition()
+      .duration(500)
+      .style('opacity', 0);
+  }
+
 
 })()
