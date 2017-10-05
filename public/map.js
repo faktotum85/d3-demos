@@ -19,8 +19,8 @@
     .catch(function(err) {console.error(err)});
 
   function init() {
-    var width = 1000;
-    var height = 1000;
+    height = window.innerHeight - document.querySelector('svg').getBoundingClientRect().y - 30;
+    width = window.innerWidth - 30;
 
     var svg = d3.select('#chart')
                 .append('svg')
@@ -40,8 +40,8 @@
       .data(map.features)
       .enter()
       .append('path')
+      .attr('fill', '#ccc')
       .attr('d', geoPath);
-
 
   }
 
