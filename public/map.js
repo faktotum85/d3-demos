@@ -19,13 +19,14 @@
     .catch(function(err) {console.error(err)});
 
   function init() {
-    height = window.innerHeight - document.querySelector('svg').getBoundingClientRect().y - 30;
-    width = window.innerWidth - 30;
-
     var svg = d3.select('#chart')
-                .append('svg')
-                .attr('width', width)
-                .attr('height', height);
+                .append('svg');
+
+    var height = window.innerHeight - document.querySelector('svg').getBoundingClientRect().y - 30;
+    var width = window.innerWidth - 30;
+
+    svg.attr('width', width)
+       .attr('height', height);
 
     var countries = svg.append('g');
 
