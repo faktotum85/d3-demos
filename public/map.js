@@ -23,7 +23,7 @@
                 .append('svg');
 
     var height = window.innerHeight - document.querySelector('svg').getBoundingClientRect().y - 30;
-    var width = Math.max(window.innerWidth - 30, 600);
+    var width = window.innerWidth - 30;
 
     svg.attr('width', width)
        .attr('height', height);
@@ -33,17 +33,29 @@
     var mercProjection = d3
       .geoEquirectangular()
       .center([13,52])
-      // .translate([width/2, height/2]);
       .fitExtent([[20,20],[width - 40, height - 40]], map);
 
+    var geoPath = d3
+      .geoPath()
+      .projection(mercProjection);
 
-    var geoPath = d3.geoPath().projection(mercProjection);
     countries.selectAll('path')
       .data(map.features)
       .enter()
       .append('path')
       .attr('fill', '#ccc')
       .attr('d', geoPath);
+
+    var meteors = svg.append('g');
+
+    meteors
+      .selectAll('circle')
+      .data(meteorStrikes.features)
+      .append('circle')
+      .attr('fill', 'red')
+      .attr('cx', function (d) {return mercProjection(d)[0]})
+      .attr('cy', function (d) {return mercProjection(d)[1]})
+      .attr('r', 10)
 
   }
 
