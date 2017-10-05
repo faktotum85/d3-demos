@@ -19,8 +19,9 @@
     .catch(function(err) {console.error(err)});
 
   function init() {
-    var width = 700;
-    var height = 580;
+    console.log(geoMap);
+    var width = 2000;
+    var height = 2000;
 
     var svg = d3.select('#chart')
                 .append('svg')
