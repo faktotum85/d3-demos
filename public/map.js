@@ -19,7 +19,6 @@
     .catch(function(err) {console.error(err)});
 
   function init() {
-    console.log(map);
     var width = 2000;
     var height = 2000;
 
@@ -31,7 +30,7 @@
     var countries = svg.append('g');
 
     // // a projection creates a function into which you can plug longitude and latitude values and get projected coordinates back.
-    var mercProjection = d3.geoMercator()
+    var mercProjection = d3.geoEquirectangularRaw()
 
     // // A geo path is a function that takes a GeoJSON feature and returns SVG path data, based on the specified projection.
     var geoPath = d3.geoPath().projection(mercProjection);
