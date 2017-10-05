@@ -19,7 +19,7 @@
     .catch(function(err) {console.error(err)});
 
   function init() {
-    console.log(geoMap);
+    console.log(map);
     var width = 2000;
     var height = 2000;
 
