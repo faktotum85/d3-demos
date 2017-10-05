@@ -40,7 +40,6 @@
       .data(map.features)
       .enter()
       .append('path')
-      .attr('fill', '#ccc')
       .attr('d', geoPath);
 
 
