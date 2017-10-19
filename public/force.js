@@ -43,6 +43,8 @@
     nodeElements
       .append('image')
       .attr('xlink:href', 'flags.png')
+      .attr('height', 176)
+      .attr('width', 256)
       .append('title')
       .text(function (node) {return node.country})
 
