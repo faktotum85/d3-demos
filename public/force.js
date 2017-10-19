@@ -38,7 +38,7 @@
       .enter().append('svg')
         .attr('height', h)
         .attr('width', w)
-        .attr('viewBox', function (node) {return offsets[node.code][0] + ',' + offsets[node.code][1] + ','+ w +','+ h})
+        .attr('viewBox', function (node) {return offsets[node.code][0] + ' ' + offsets[node.code][1] + ' '+ w +' '+ h})
 
     nodeElements
       .append('image')
